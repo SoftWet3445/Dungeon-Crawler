@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 110378031577343666}
   - component: {fileID: 110378031577343667}
   - component: {fileID: 110378031577343665}
-  - component: {fileID: 1337686710974088249}
+  - component: {fileID: 307726712928172037}
   m_Layer: 5
   m_Name: BodySlot
   m_TagString: Untagged
@@ -102,7 +102,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110378031577343821}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -170,7 +170,7 @@ MonoBehaviour:
   itemID: 0
   slotID: 0
   itemIcon: {fileID: 110378031257401897}
---- !u!114 &1337686710974088249
+--- !u!114 &307726712928172037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -215,7 +215,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 110378031577343665}
-        m_TargetAssemblyTypeName: IS_InventorySlot, Assembly-CSharp
+        m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
         m_MethodName: SendIDToInventory
         m_Mode: 1
         m_Arguments:

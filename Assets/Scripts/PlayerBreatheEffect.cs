@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P_WeaponSway : MonoBehaviour
+public class PlayerBreatheEffect : MonoBehaviour
 {
     [SerializeField] private float idleCounter;
     //[SerializeField] private float movementCounter;

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P_WeaponHandler : MonoBehaviour
+public class PlayerWeaponHandler : MonoBehaviour
 {
-    public SO_WeaponItem currentWeapon;
+    public ObjectItemWeapon currentWeapon;
     [Space(10)]
 
     [SerializeField] private float weaponDamage = 0.0f;
@@ -28,25 +28,38 @@ public class P_WeaponHandler : MonoBehaviour
 
         weaponAnimator = weaponPivot.GetComponent<Animator>();  
 
-        // Update held weapon at the game start if it exists
-        if (currentWeapon != null) { UpdateHeldWeapon(); }
-
-        canUseWeapon = true;
+        UpdateHeldWeapon();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P) && Debug.isDebugBuild) { UpdateHeldWeapon(); }
+
+        if (currentWeapon == null) { canUseWeapon = false; }
     }
 
-    private void UpdateHeldWeapon()
+    public void UpdateHeldWeapon()
     {
-        // Update the weapon's sprite
-        weaponSR.sprite = currentWeapon.itemSprite;
+        if (currentWeapon == null)
+        {
+            canUseWeapon = false;
+            // Update the weapon's sprite
+            weaponSR.sprite = null;
 
-        // Update the weapon's values
-        weaponDamage = currentWeapon.damage;
-        weaponRange = currentWeapon.range;
+            // Update the weapon's values
+            weaponDamage = 0.0f;
+            weaponRange = 0.0f;
+        }
+        else if (currentWeapon != null)
+        {
+            canUseWeapon = true;
+            // Update the weapon's sprite
+            weaponSR.sprite = currentWeapon.itemSprite;
+
+            // Update the weapon's values
+            weaponDamage = currentWeapon.damage;
+            weaponRange = currentWeapon.range;
+        }
     }
 
     public void TryUseWeapon()

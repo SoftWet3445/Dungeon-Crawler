@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3720622489057976582}
   - component: {fileID: 3720622489057976583}
   - component: {fileID: 3720622489057976581}
-  - component: {fileID: 2358198132888748941}
+  - component: {fileID: -6683550953844980966}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -165,11 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816bacc2975094341a979cdac4b4e2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 0
   item: {fileID: 0}
   itemID: 0
   slotID: 0
   itemIcon: {fileID: 3720622488738561437}
---- !u!114 &2358198132888748941
+--- !u!114 &-6683550953844980966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -214,7 +215,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3720622489057976581}
-        m_TargetAssemblyTypeName: IS_InventorySlot, Assembly-CSharp
+        m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
         m_MethodName: SendIDToInventory
         m_Mode: 1
         m_Arguments:

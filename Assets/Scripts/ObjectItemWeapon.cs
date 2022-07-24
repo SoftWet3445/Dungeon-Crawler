@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/Inventory System/Weapon Item", fileName = "newWeaponItem")]
-public class SO_WeaponItem : SO_ItemBase
+public class ObjectItemWeapon : ObjectItemBase
 {
     [Header("Weapon Parameters")]
     public float damage = 10;

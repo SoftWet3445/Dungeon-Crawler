@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class G_GridMovement : MonoBehaviour
+public class GridMovement : MonoBehaviour
 {
     [SerializeField] private bool smoothTransition = true;
     [Space(10)]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[CreateAssetMenu(menuName = "Data/Inventory System/XXX", fileName = "YYY")]
-public class SO_ItemBase : ScriptableObject
+public class ObjectItemBase : ScriptableObject
 {
     [Header("Base Parameters")]
     public ItemType itemType;

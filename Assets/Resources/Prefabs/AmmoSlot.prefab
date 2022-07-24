@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3794196474358203009}
   - component: {fileID: 5872888497490097607}
   - component: {fileID: 6671954453681328092}
-  - component: {fileID: 1944402027889664254}
+  - component: {fileID: 2807383563345681386}
   m_Layer: 5
   m_Name: AmmoSlot
   m_TagString: Untagged
@@ -102,7 +102,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9073038094966043674}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -170,7 +170,7 @@ MonoBehaviour:
   itemID: 0
   slotID: 0
   itemIcon: {fileID: 4044545996593830929}
---- !u!114 &1944402027889664254
+--- !u!114 &2807383563345681386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -215,7 +215,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6671954453681328092}
-        m_TargetAssemblyTypeName: IS_InventorySlot, Assembly-CSharp
+        m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
         m_MethodName: SendIDToInventory
         m_Mode: 1
         m_Arguments:

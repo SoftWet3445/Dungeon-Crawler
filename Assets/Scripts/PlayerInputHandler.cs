@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(P_WeaponHandler))]
-[RequireComponent(typeof(G_GridMovement))]
-public class P_InputHandler : MonoBehaviour
+[RequireComponent(typeof(PlayerWeaponHandler))]
+[RequireComponent(typeof(GridMovement))]
+public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private KeyCode forward = KeyCode.W;
     [SerializeField] private KeyCode backward = KeyCode.S;
@@ -19,13 +19,13 @@ public class P_InputHandler : MonoBehaviour
 
     [SerializeField] private KeyCode attack = KeyCode.Space;
 
-    private G_GridMovement gridMovement;
-    private P_WeaponHandler weaponHandler;
+    private GridMovement gridMovement;
+    private PlayerWeaponHandler weaponHandler;
     
     private void Start()
     {
-        gridMovement = this.GetComponent<G_GridMovement>();
-        weaponHandler = this.GetComponent<P_WeaponHandler>();
+        gridMovement = this.GetComponent<GridMovement>();
+        weaponHandler = this.GetComponent<PlayerWeaponHandler>();
     }
 
     private void Update()

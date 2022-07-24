@@ -4,33 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum ItemType { weapon, shield, ammo, trinket, consumable, head, body, legs, undefined }
-public class IS_InventoryBase : MonoBehaviour
+public class InventorySystem : MonoBehaviour
 {
-    public static IS_InventoryBase instance;
+    public static InventorySystem instance;
 
-    public int inventorySize = 20;
+    public int inventorySize = 15;
     public int specialSlots = 9;
+    [Space(10)]
 
     [SerializeField] private GameObject inventorySlotPrefab;
+    [Space(10)]
 
-    [SerializeField] private IS_InventorySlot[] classSlotArray;
-    public SO_ItemBase[] itemArray;
+    [SerializeField] private Transform slotHolder;
+    [Space(10)]
+
+    public ObjectItemBase[] itemArray;
+    [SerializeField] private InventorySlot[] classSlotArray;
     [SerializeField] private List<GameObject> objectSlotList;
+    [Space(10)]
+    //[SerializeField] private ObjectItemBase testAddItem;
 
-    [SerializeField] private SO_ItemBase testAddItem;
+    public List<InventorySlot> swapSlotList;
 
-    public List<IS_InventorySlot> swapSlotList;
+    private Image itemIconMouseFollower;
 
     private void Awake() => instance = this;
 
     private void Start()
     {
         // Instantiate arrays
-        classSlotArray = new IS_InventorySlot[inventorySize + specialSlots];
-        itemArray = new SO_ItemBase[inventorySize + specialSlots];
+        classSlotArray = new InventorySlot[inventorySize + specialSlots];
+        itemArray = new ObjectItemBase[inventorySize + specialSlots];
         // Instantiate lists
         objectSlotList = new List<GameObject>();
-        swapSlotList = new List<IS_InventorySlot>();
+        swapSlotList = new List<InventorySlot>();
+
+        itemIconMouseFollower = transform.GetChild(3).GetComponent<Image>();
 
         // Create the inventory
         DisplayInventory();
@@ -40,15 +49,27 @@ public class IS_InventoryBase : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L) && Debug.isDebugBuild) { AddItemToInventory(testAddItem); }
+        //if (Input.GetKeyDown(KeyCode.L) && Debug.isDebugBuild) { AddItemToInventory(testAddItem); }
         //if (Input.GetKeyDown(KeyCode.K) && Debug.isDebugBuild) { DestroyInventory(); }
-        if (Input.GetKeyDown(KeyCode.K) && Debug.isDebugBuild) { DisplayInventory(); }
+        //if (Input.GetKeyDown(KeyCode.K) && Debug.isDebugBuild) { DisplayInventory(); }
 
         if (swapSlotList.Count == 2) 
         {
             SwapItems(swapSlotList[0].slotID, swapSlotList[1].slotID);
         }
 
+        if (swapSlotList.Count > 0) 
+        { 
+            itemIconMouseFollower.enabled = true; 
+            itemIconMouseFollower.sprite = swapSlotList[0].item.itemSprite;
+            // Disable the icon of the item thats being held
+            classSlotArray[swapSlotList[0].slotID].itemIcon.enabled = false;
+        }
+        else 
+        {
+            itemIconMouseFollower.enabled = false;
+            //classSlotArray[swapSlotList[0].slotID].itemIcon.enabled = true;
+        }
     }
 
     private void DisplayInventory()
@@ -60,9 +81,9 @@ public class IS_InventoryBase : MonoBehaviour
         {
             GameObject newSlot = null;
             // Create an instance of the inventory slot object
-            newSlot = Instantiate(inventorySlotPrefab, transform.position, Quaternion.identity, transform);
+            newSlot = Instantiate(inventorySlotPrefab, transform.position, Quaternion.identity, slotHolder);
             // Add the inventory slot's class to the inventory slot array
-            classSlotArray[i] = newSlot.GetComponent<IS_InventorySlot>();
+            classSlotArray[i] = newSlot.GetComponent<InventorySlot>();
             // Update the slot's slotID
             classSlotArray[i].slotID = i;
             classSlotArray[i].slotType = ItemType.undefined;
@@ -76,14 +97,14 @@ public class IS_InventoryBase : MonoBehaviour
 
     private void AddSpecialSlots()
     {
-        for (int i = 1; i < 10; i++)
+        for (int i = 0; i < 9; i++)
         {
             // Create index a, being i + the invetory size minus one (arrays are zero indexed) to account for bulk slots
-            int a = i + (inventorySize - 1);
+            int a = i + (inventorySize);
             // Add the special inventory slot at index a 
-            classSlotArray[a] = transform.parent.GetChild(i).GetComponent<IS_InventorySlot>();
+            classSlotArray[a] = transform/*.parent*/.GetChild(1).GetChild(i).GetComponent<InventorySlot>();
             // Assign the id of these special slots
-            classSlotArray[a].GetComponent<IS_InventorySlot>().slotID = a;
+            classSlotArray[a].GetComponent<InventorySlot>().slotID = a;
         }
     }
 
@@ -124,8 +145,9 @@ public class IS_InventoryBase : MonoBehaviour
         }
         else
         {
+            classSlotArray[swapSlotList[0].slotID].itemIcon.enabled = true;
             // Reset the swap list
-            swapSlotList = new List<IS_InventorySlot>();
+            swapSlotList = new List<InventorySlot>();
             // Exit the function since the slot types are neither the same or undefined
             return;
         }
@@ -134,11 +156,13 @@ public class IS_InventoryBase : MonoBehaviour
         itemArray[indexB] = classSlotArray[indexA].item;
         // Update the item
         classSlotArray[indexB].UpdateItem(itemArray[indexB]);
+
+        classSlotArray[swapSlotList[0].slotID].itemIcon.enabled = true;
         // Reset the swap list
-        swapSlotList = new List<IS_InventorySlot>();
+        swapSlotList = new List<InventorySlot>();
     }
 
-    public void AddItemToInventory(SO_ItemBase item)
+    public void AddItemToInventory(ObjectItemBase item)
     {
         // Add item to the first empty slot
         for (int i = 0; i < inventorySize; i++)
