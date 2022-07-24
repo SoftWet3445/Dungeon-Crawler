@@ -7,7 +7,6 @@ public class SO_ItemBase : ScriptableObject
 {
     [Header("Base Parameters")]
     public ItemType itemType;
-    public enum ItemType { weapon, consumable, trinket, armor }
     [Space(10)]
 
     public string itemName = "Base Item";
