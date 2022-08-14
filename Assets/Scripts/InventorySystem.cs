@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemType { weapon, shield, ammo, trinket, consumable, head, body, legs, undefined }
+public enum ItemType { weapon, shield, trinket, consumable, head, body, legs, gauntlet, undefined/*, ammo,*/ }
 public class InventorySystem : MonoBehaviour
 {
     public static InventorySystem instance;
 
     public int inventorySize = 15;
-    public int specialSlots = 9;
+    public int equipmentSlots = 9;
     [Space(10)]
 
     [SerializeField] private GameObject inventorySlotPrefab;
@@ -24,22 +24,26 @@ public class InventorySystem : MonoBehaviour
     [Space(10)]
     //[SerializeField] private ObjectItemBase testAddItem;
 
-    public List<InventorySlot> swapSlotList;
+    [HideInInspector] public List<InventorySlot> swapSlotList;
+
+    private bool isOpen;
 
     private Image itemIconMouseFollower;
+    private RectTransform inventoryTransform;
 
     private void Awake() => instance = this;
 
     private void Start()
     {
         // Instantiate arrays
-        classSlotArray = new InventorySlot[inventorySize + specialSlots];
-        itemArray = new ObjectItemBase[inventorySize + specialSlots];
+        classSlotArray = new InventorySlot[inventorySize + equipmentSlots];
+        itemArray = new ObjectItemBase[inventorySize + equipmentSlots];
         // Instantiate lists
         objectSlotList = new List<GameObject>();
         swapSlotList = new List<InventorySlot>();
 
-        itemIconMouseFollower = transform.GetChild(3).GetComponent<Image>();
+        itemIconMouseFollower = transform.GetChild(2).GetComponent<Image>();
+        inventoryTransform = transform.GetChild(0).GetComponent<RectTransform>();
 
         // Create the inventory
         DisplayInventory();
@@ -77,6 +81,7 @@ public class InventorySystem : MonoBehaviour
         // Try to destroy the inventory
         DestroyInventory();
 
+        // Generate the inventory slots
         for (int i = 0; i < inventorySize; i++)
         {
             GameObject newSlot = null;
@@ -97,7 +102,7 @@ public class InventorySystem : MonoBehaviour
 
     private void AddSpecialSlots()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < equipmentSlots; i++)
         {
             // Create index a, being i + the invetory size minus one (arrays are zero indexed) to account for bulk slots
             int a = i + (inventorySize);
@@ -105,6 +110,9 @@ public class InventorySystem : MonoBehaviour
             classSlotArray[a] = transform/*.parent*/.GetChild(1).GetChild(i).GetComponent<InventorySlot>();
             // Assign the id of these special slots
             classSlotArray[a].GetComponent<InventorySlot>().slotID = a;
+
+            // Add to the object list
+            objectSlotList.Add(transform/*.parent*/.GetChild(1).GetChild(i).gameObject);
         }
     }
 
@@ -180,5 +188,21 @@ public class InventorySystem : MonoBehaviour
             }
             else Debug.LogWarning("Cannot add to inventory slot " + i);
         }
+    }
+
+    public void OpenCloseInventory()
+    {
+        // Invert the isOpen bool
+        isOpen = !isOpen;
+
+        if (isOpen) { inventoryTransform.anchoredPosition = new Vector2(0.0f, 0.0f); }
+        else if (!isOpen) { inventoryTransform.anchoredPosition = new Vector2(0.0f, -168.0f); }
+    }
+
+    public void CloseInventory()
+    {
+        inventoryTransform.anchoredPosition = new Vector2(0.0f, -168.0f);
+        // Set the inventory as closed
+        isOpen = false;
     }
 }

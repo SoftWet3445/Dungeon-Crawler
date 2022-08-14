@@ -24,72 +24,71 @@ public class InventorySlot : MonoBehaviour
         // Enable or disable the item icon if there is an item stored in this slot or not
         if (InventorySystem.instance.itemArray[slotID] == null /*&& itemIcon.enabled*/) { itemIcon.enabled = false; }
 
-        //if (slotID == 0 || slotID == 1) { Debug.Log(itemIcon.enabled); }
         item = InventorySystem.instance.itemArray[slotID];
 
-        UpdatePlayer();
+        //UpdatePlayer();
     }
 
-    private void UpdatePlayer()
-    {
-        if (item == null)
-        {
-            switch (slotType)
-            {
-                case ItemType.weapon:
-                    PlayerWeaponHandler weaponHandler = FindObjectOfType<PlayerWeaponHandler>();
-                    if (weaponHandler != null)
-                    { weaponHandler.currentWeapon = null; weaponHandler.UpdateHeldWeapon(); }
-                    break;
-                case ItemType.shield:
-                    break;
-                case ItemType.ammo:
-                    break;
-                case ItemType.trinket:
-                    break;
-                case ItemType.head:
-                    break;
-                case ItemType.body:
-                    break;
-                case ItemType.legs:
-                    break;
-            }
-        }
-        else if (item != null)
-        {
-            switch (slotType)
-            {
-                case ItemType.weapon:
-                    PlayerWeaponHandler weaponHandler = FindObjectOfType<PlayerWeaponHandler>();
-                    if (weaponHandler != null && item != null)
-                    { weaponHandler.currentWeapon = item as ObjectItemWeapon; weaponHandler.UpdateHeldWeapon(); }
-                    break;
-                case ItemType.shield:
-                    break;
-                case ItemType.ammo:
-                    break;
-                case ItemType.trinket:
-                    break;
-                case ItemType.head:
-                    break;
-                case ItemType.body:
-                    break;
-                case ItemType.legs:
-                    break;
-            }
-        }
-    }
+    //private void UpdatePlayer()
+    //{
+    //    if (item == null)
+    //    {
+    //        switch (slotType)
+    //        {
+    //            case ItemType.weapon:
+    //                PlayerWeaponHandler weaponHandler = FindObjectOfType<PlayerWeaponHandler>();
+    //                if (weaponHandler != null)
+    //                { weaponHandler.currentWeapon = null; weaponHandler.UpdateHeldWeapon(); }
+    //                break;
+    //            case ItemType.shield:
+    //                break;
+    //            case ItemType.ammo:
+    //                break;
+    //            case ItemType.trinket:
+    //                break;
+    //            case ItemType.head:
+    //                break;
+    //            case ItemType.body:
+    //                break;
+    //            case ItemType.legs:
+    //                break;
+    //        }
+    //    }
+    //    else if (item != null)
+    //    {
+    //        switch (slotType)
+    //        {
+    //            case ItemType.weapon:
+    //                PlayerWeaponHandler weaponHandler = FindObjectOfType<PlayerWeaponHandler>();
+    //                if (weaponHandler != null && item != null)
+    //                { weaponHandler.currentWeapon = item as ObjectItemWeapon; weaponHandler.UpdateHeldWeapon(); }
+    //                break;
+    //            case ItemType.shield:
+    //                break;
+    //            case ItemType.ammo:
+    //                break;
+    //            case ItemType.trinket:
+    //                break;
+    //            case ItemType.head:
+    //                break;
+    //            case ItemType.body:
+    //                break;
+    //            case ItemType.legs:
+    //                break;
+    //        }
+    //    }
+    //}
 
     public void UpdateItem(ObjectItemBase item)
     {
         // Exit the function if the item is null, I hope this works
         if (item == null) { return; }
 
+        if (InventorySystem.instance.itemArray[slotID] != null /*&& !itemIcon.enabled*/) { itemIcon.enabled = true; }
+
         // Update the slot's icon the new item's sprite
         if (item != null || item.itemSprite != null) { itemIcon.sprite = item.itemSprite; } 
         else { return; } // Maybe redundant but I am incredibly sick of this null reference error
-
-        if (InventorySystem.instance.itemArray[slotID] != null /*&& !itemIcon.enabled*/) { itemIcon.enabled = true; }
     }
 
     public void SendIDToInventory()

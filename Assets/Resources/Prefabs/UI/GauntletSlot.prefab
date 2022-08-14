@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6671954453681328092}
   - component: {fileID: 2807383563345681386}
   m_Layer: 5
-  m_Name: AmmoSlot
+  m_Name: GauntletSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3577361503238843792, guid: 33891763803f98f459585a36286588e0, type: 3}
+  m_Sprite: {fileID: -4705586940338906959, guid: 33891763803f98f459585a36286588e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816bacc2975094341a979cdac4b4e2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 2
+  slotType: 7
   item: {fileID: 0}
   itemID: 0
   slotID: 0
